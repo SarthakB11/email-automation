@@ -13,6 +13,8 @@ SMTP_PASSWORD = os.getenv('PASSWORD')
 email_addresses = ['recipient1@example.com', 'recipient2@example.com', 'recipient3@example.com']
 subjects = ['Subject 1', 'Subject 2', 'Subject 3']
 names = ['Name 1', 'Name 2', 'Name 3']
+companies = ['Company1', 'Company2']
+positions = ['Position1', 'Position2']
 
 email_body_template = """
 Here is email body.
@@ -51,19 +53,14 @@ def main():
     linkedin_link = os.getenv('LINKEDIN_LINK')
     github_link = os.getenv('GITHUB_LINK')
 
-
-    # Debug print statements
     print(f"SMTP_USERNAME: {SMTP_USERNAME}")
     print(f"SMTP_PASSWORD: {SMTP_PASSWORD}")
     print(f"RESUME_LINK: {resume_link}")
     print(f"LINKEDIN_LINK: {linkedin_link}")
     print(f"GITHUB_LINK: {github_link}")
-    
-    for email, subject, name in zip(email_addresses, subjects, names):
 
-        body = email_body_template.format(name=name, RESUME_LINK=resume_link, LINKEDIN_LINK=linkedin_link, GITHUB_LINK=github_link)
-
-
+    for email, subject, name, company_name, position in zip(email_addresses, subjects, names, companies, positions):
+        body = email_body_template.format(name=name, position=position, company_name=company_name, RESUME_LINK=resume_link, LINKEDIN_LINK=linkedin_link, GITHUB_LINK=github_link)
         send_email(email, subject, body)
 
 if __name__ == '__main__':
